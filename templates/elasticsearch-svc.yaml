@@ -1,0 +1,23 @@
+{{- if .Values.elasticsearch.builtin.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: wazuh
+  labels:
+    app: elasticsearch
+    io.kompose.service: elasticsearch
+spec:
+  selector:
+    app: elasticsearch
+    io.kompose.service: elasticsearch
+  serviceName: elasticsearch
+  ports:
+    - name: es-rest
+      port: 9200
+      targetPort: 9200
+    - name: es-nodes
+      port: 9300
+      targetPort: 9300
+  clusterIP: None
+{{- end }}

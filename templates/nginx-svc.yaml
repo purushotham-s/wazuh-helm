@@ -1,0 +1,35 @@
+{{- if .Values.nginx.tls -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: wazuh-nginx
+  namespace: wazuh
+  labels:
+    app: wazuh-nginx
+  annotations:
+    domainName: {{ .Values.domain }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: wazuh-nginx
+  ports:
+    - name: red-https
+      port: 443
+      targetPort: 443
+{{- else -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: wazuh-nginx
+  namespace: wazuh
+  labels:
+    app: wazuh-nginx
+spec:
+  type: LoadBalancer
+  selector:
+    app: wazuh-nginx
+  ports:
+    - name: red-https
+      port: 443
+      targetPort: 443
+{{- end }}

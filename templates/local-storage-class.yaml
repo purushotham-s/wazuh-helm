@@ -1,0 +1,8 @@
+{{- if eq "local-storage" .Values.disk.storageclass -}}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage-retained
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Retain
+{{- end }}
